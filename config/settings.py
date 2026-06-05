@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'apps.accounts',
+
     'apps.workspaces',
+
+    'apps.teams',
+
 ]
 
 MIDDLEWARE = [
