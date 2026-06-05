@@ -6,9 +6,11 @@ from django.db import models
 
 from apps.accounts.managers import UserManager
 from core.constants import UserRole
+from core.models import BaseModel
 
 
 class User(
+    BaseModel,
     AbstractBaseUser,
     PermissionsMixin
 ):
