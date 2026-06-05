@@ -33,10 +33,9 @@ class UserManager(BaseUserManager):
             **extra_fields
     ):
         
-        extra_fields.setdefault(
-            "role",
-            "SUPER_ADMIN"
-        )
+        extra_fields["is_staff"] = True
+        extra_fields["is_superuser"] = True
+        extra_fields["role"] = "SUPER_ADMIN"
 
         return self.create_user(
             email,
