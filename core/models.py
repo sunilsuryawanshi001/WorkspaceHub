@@ -13,11 +13,11 @@ class BaseModel(models.Model):
         editable=False,
     )
 
-    created_at = models.DateField(
+    created_at = models.DateTimeField(
         auto_now_add=True
     )
 
-    updated_at = models.DateField(
+    updated_at = models.DateTimeField(
         auto_now=True
     )
 
