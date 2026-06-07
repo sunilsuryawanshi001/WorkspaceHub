@@ -4,6 +4,8 @@ from core.models import BaseModel
 from core.constants import ProjectStatus
 from apps.workspaces.models import Workspace
 
+from django.conf import settings
+
 
 class Project(BaseModel):
 
@@ -50,3 +52,38 @@ class Project(BaseModel):
 
     def __str__(self):
         return self.name
+    
+
+class ProjectMember(BaseModel):
+
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="members"
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="project_membership"
+    )
+
+    is_project_lead = models.BooleanField(
+        default=False
+    )
+
+    joined_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        db_table = "project_members"
+        unique_together = (
+            ("project", "user")
+        )
+
+    def __str__(self):
+        return (
+            f"{self.user.email} - "
+            f"{self.project.name}"
+        )
