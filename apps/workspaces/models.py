@@ -52,8 +52,7 @@ class WorkspaceMember(BaseModel):
     class Meta:
         db_table = "workspace_members"
         unique_together = (
-            "workspace",
-            "user",
+            ("workspace","user"),
         )
 
     def __str__(self):

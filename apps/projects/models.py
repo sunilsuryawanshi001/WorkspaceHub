@@ -5,6 +5,7 @@ from core.constants import ProjectStatus
 from apps.workspaces.models import Workspace
 
 from django.conf import settings
+from django.db.models import Q
 
 
 class Project(BaseModel):
@@ -49,6 +50,12 @@ class Project(BaseModel):
         unique_together = (
             ("workspace", "name"),
         )
+        constraints = [
+            models.CheckConstraint(
+                check=Q(end_date__gte=models.F("start_date")),
+                name="project_end_after_start"
+            )
+        ]
 
     def __str__(self):
         return self.name
@@ -65,7 +72,7 @@ class ProjectMember(BaseModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="project_membership"
+        related_name="project_memberships"
     )
 
     is_project_lead = models.BooleanField(

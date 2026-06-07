@@ -16,11 +16,13 @@ class User(
 ):
     employee_id = models.CharField(
         max_length=20,
-        unique=True
+        unique=True,
+        db_index=True
     )
 
     email = models.EmailField(
-        unique=True
+        unique=True,
+        db_index=True
     )
 
     first_name = models.CharField(
